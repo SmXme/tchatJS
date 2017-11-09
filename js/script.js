@@ -1,11 +1,12 @@
+myself=0;
 function createUser(){
 	$.ajax("http://messenger.api.niamor.com/createUser").done(function(myUser){
-		console.log("Voici mon user :");
-		console.log(myUser);
+		myself = myUser;
+		console.log(myself.authKey)
 	});
 }
-$(document).ready(createUser);
 
+$(document).ready(createUser);
 function getUsers(){
 	$.ajax("http://messenger.api.niamor.com/getUsers").done(function(myUsers){
 		for (i = 0 ; i < myUsers.length ; i++){
@@ -13,6 +14,7 @@ function getUsers(){
 		 }
 	});
 }
+
 $(document).ready(getUsers);
 function sendMessage(){
 	if (event.keyCode == 13){

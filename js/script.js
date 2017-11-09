@@ -1,5 +1,3 @@
-myUsersArray=[];
-
 function createUser(){
 	$.ajax("http://messenger.api.niamor.com/createUser").done(function(myUser){
 		console.log("Voici mon user :");
@@ -16,7 +14,3 @@ function getUsers(){
 	});
 }
 $(document).ready(getUsers);
-
-function displayUsers(){
-
-}

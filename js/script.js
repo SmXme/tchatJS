@@ -2,7 +2,7 @@ myself=0;
 function createUser(){
 	$.ajax("http://messenger.api.niamor.com/createUser").done(function(myUser){
 		myself = myUser;
-		console.log(myself.authKey)
+		console.log(myself.authKey);
 	});
 }
 

@@ -1,9 +1,15 @@
 body, html {
-margin: 0;
-padding: 0;
-height: 100%;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 #zoneText {
 	position: absolute;
 	bottom: 0;
+}
+#affichageUtilisateur {
+	background-color: #bd491A;
+	border : solid 3px white;
+	border-radius: 10px;
+
 }

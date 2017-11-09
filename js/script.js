@@ -14,3 +14,9 @@ function getUsers(){
 	});
 }
 $(document).ready(getUsers);
+function sendMessage(){
+	if (event.keyCode == 13){
+		//TRAITEMENTS SI APPUIE SUR ENTER DANS LE CHAMP DE TEXTE
+	}
+}
+$('#ecrireText').keypress(sendMessage);

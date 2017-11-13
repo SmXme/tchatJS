@@ -1,16 +1,38 @@
-myself=0;
+var myself={};
+laAuthKey = 0;
 if (testCookie() == true){
-	console.log(document.cookie);
+	var leCookie = document.cookie;
+	var pos = leCookie.search("=");
+	var laAuthKey = leCookie.slice(pos+1, leCookie.length);
+	getUser();
 }else {
-	console.log("C'est Faux");
 	createUser();
 }
 
-function testCookie (){
-	if (document.cookie == "")res = false;
-	else res = true;
-	return res;
-}
+	function testCookie (){
+		if (document.cookie == "")res = false;
+		else res = true;
+		return res;
+	}
+	function getUser(){
+		parametersGetUser = {
+							url: 'http://messenger.api.niamor.com/getUser',
+							method: "post",
+							data: {
+								authKey: laAuthKey,
+							}
+						};
+		$.ajax(parametersGetUser).done(function(monUser){
+		console.log(monUser);
+		myself["id"] = monUser.id;
+		myself["username"] = monUser.username;
+		myself["createdAt"] = monUser.createdAt;
+		myself["lastMessageAt"] = monUser.lastMessageAt;
+		myself["authKey"] = laAuthKey;
+		console.log(myself);
+		console.log(document.cookie);
+		});
+	}
 
 function testEnter (){
 	if (event.keyCode == 13){
@@ -29,7 +51,7 @@ function sendMessages(){
 						text: txtMsg,
 						to: 0
 					}
-			};
+			};parametersGetUser
 
 	$.ajax(parametersSet).done(function(){
 		console.log("message envoyé");
@@ -40,7 +62,6 @@ $('#ecrireText').keypress(testEnter)
 $('#buttonEnvoieMessage').click(sendMessages);
 
 	function getMessages(){
-
 	parametersGet = {
 					url: 'http://messenger.api.niamor.com/getMessages',
 					method: "post",
@@ -49,13 +70,13 @@ $('#buttonEnvoieMessage').click(sendMessages);
 						lastId : 0
 					}
 			};
-
-
 	$.ajax(parametersGet).done(function(messages){
 		console.log(messages);
 		displayMessages(messages);
 	});
 }
+
+
 function displayMessages(someMessages){
 	$('#chatBox').html("");
 	for (i = 0 ; i < someMessages.length ; i++){
@@ -79,8 +100,6 @@ function createUser(){
 		myself = myUser;
 		console.log(myself.authKey);
 		getMessages();
-		document.cookie = "cookieUsername="+myself.username;
-		document.cookie = "cookieId="+myself.id;
 		document.cookie = "cookieAuthKey="+myself.authKey;
 	});
 }

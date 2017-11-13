@@ -1,7 +1,10 @@
 myself=0;
 if (testCookie() == true){
-	console.log("Cookie plein");
-}else console.log("Cookie vide");
+	console.log(document.cookie);
+}else {
+	console.log("C'est Faux");
+	createUser();
+}
 
 function testCookie (){
 	if (document.cookie == "")res = false;
@@ -76,12 +79,11 @@ function createUser(){
 		myself = myUser;
 		console.log(myself.authKey);
 		getMessages();
+		document.cookie = "cookieUsername="+myself.username;
+		document.cookie = "cookieId="+myself.id;
+		document.cookie = "cookieAuthKey="+myself.authKey;
 	});
 }
-
-
-$(document).ready(createUser);
-
 
 function getUsers(){
 	$.ajax("http://messenger.api.niamor.com/getUsers").done(function(myUsers){

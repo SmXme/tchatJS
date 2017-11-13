@@ -61,6 +61,7 @@ function sendMessages(){
 				var posSpace = txtMsg.search(" ");
 				var pseudo = txtMsg.slice(posSpace+1, txtMsg.length);
 				changeUsername(pseudo);
+				$('#ecrireText').attr("placeholder",'Félicitations, vous êtes maintenant connu sous le pseudo "'+pseudo+'"');
 			}
 		return false;
 	}	

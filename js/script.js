@@ -69,3 +69,4 @@ function getUsers(){
 }
 
 $(document).ready(getUsers);
+$(document).ready(setInterval(getMessages, 2000)); 

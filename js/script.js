@@ -63,6 +63,9 @@ function sendMessages(){
 				changeUsername(pseudo);
 				$('#ecrireText').attr("placeholder",'Félicitations, vous êtes maintenant connu sous le pseudo "'+pseudo+'"');
 			}
+			else {
+				$('#ecrireText').attr("placeholder",'La commande n\'est pas reconnue.');	
+			}
 		return false;
 	}	
 	parametersSet = {
@@ -127,11 +130,12 @@ function createUser(){
 
 function getUsers(){
 	$.ajax("http://messenger.api.niamor.com/getUsers").done(function(myUsers){
+		$('#affichageUtilisateur').html("");
 		for (i = 0 ; i < myUsers.length ; i++){
 			$('#affichageUtilisateur').append("<p class='pUsername'>"+myUsers[i].username+"</p>");
 		 }
 	});
 }
 
-$(document).ready(getUsers);
+$(document).ready(setInterval(getUsers,2000));
 $(document).ready(setInterval(getMessages, 2000)); 

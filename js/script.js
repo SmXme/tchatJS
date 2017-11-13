@@ -94,6 +94,8 @@ $('#buttonEnvoieMessage').click(sendMessages);
 	$.ajax(parametersGet).done(function(messages){
 		displayMessages(messages);
 	});
+	elem = document.getElementById("chatBox");
+	elem.scrollTop = elem.scrollHeight;
 }
 
 

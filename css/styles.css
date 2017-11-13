@@ -34,10 +34,17 @@ body, html {
 	margin-top: 10px;
 	overflow: auto;
 }
+.pMsgForMe, .pMsgByMe {
+
+	width: 100%;
+	color: white;
+}
 .pMsgForMe{
-text-align: left;
+	background: rgba(189, 73, 26,0.7);
+	text-align: left;
 }
 
 .pMsgByMe{
-text-align: right;
+	background: rgba(0, 132, 145,0.7);
+	text-align: right;
 }

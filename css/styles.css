@@ -35,17 +35,25 @@ body, html {
 	margin-top: 10px;
 	overflow: auto;
 }
-.pMsgForMe, .pMsgByMe {
-
-	width: 100%;
+.divMsgForMe, .divMsgByMe {
+	margin:auto;
+	width: 98%;
+	padding-left: 5px;
 	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	margin-bottom: 10px;
 }
-.pMsgForMe{
+.divMsgForMe{
 	background: rgba(189, 73, 26,0.7);
 	text-align: left;
 }
 
-.pMsgByMe{
+.divMsgByMe{
 	background: rgba(0, 132, 145,0.7);
 	text-align: right;
+}
+.pInfoMsg{
+	font-style: italic;
+	font-size: 0.8em; 
 }

@@ -1,4 +1,14 @@
 myself=0;
+if (testCookie() == true){
+	console.log("Cookie plein");
+}else console.log("Cookie vide");
+
+function testCookie (){
+	if (document.cookie == "")res = false;
+	else res = true;
+	return res;
+}
+
 function testEnter (){
 	if (event.keyCode == 13){
 		console.log("Tu as appuyé sur entrer");
@@ -8,7 +18,7 @@ function testEnter (){
 function sendMessages(){
 	txtMsg = $('#ecrireText').val();
 	$('#ecrireText').val(""); 
-	parametersGet = {
+	parametersSet = {
 					url: 'http://messenger.api.niamor.com/sendMessage',
 					method: "post",
 					data: {
@@ -18,13 +28,14 @@ function sendMessages(){
 					}
 			};
 
-	$.ajax(parametersGet).done(function(){
+	$.ajax(parametersSet).done(function(){
 		console.log("message envoyé");
 		getMessages();
 	});
 }
 $('#ecrireText').keypress(testEnter)
 $('#buttonEnvoieMessage').click(sendMessages);
+
 	function getMessages(){
 
 	parametersGet = {
@@ -45,9 +56,18 @@ $('#buttonEnvoieMessage').click(sendMessages);
 function displayMessages(someMessages){
 	$('#chatBox').html("");
 	for (i = 0 ; i < someMessages.length ; i++){
+
+		laDate = someMessages[i].createdAt; 
+
 		if(someMessages[i].from.id != myself.id){
-			$('#chatBox').append("<p class='pMsgForMe'>"+someMessages[i].text+"</p>");
-		}else $('#chatBox').append("<p class='pMsgByMe'>"+someMessages[i].text+"</p>");
+			$('#chatBox').append("<div class='divMsgForMe'><p class='pInfoMsg'>Message de "+
+			someMessages[i].from.username+" à : "+
+			laDate+"<p>"+someMessages[i].text+
+			"</p></div>");
+		}else $('#chatBox').append("<div class='divMsgByMe'><p class='pInfoMsg'>Message de "+
+			someMessages[i].from.username+" à : "+
+			laDate+"<p>"+someMessages[i].text+
+			"</p></div>");
 	}
 }
 
@@ -59,7 +79,10 @@ function createUser(){
 	});
 }
 
+
 $(document).ready(createUser);
+
+
 function getUsers(){
 	$.ajax("http://messenger.api.niamor.com/getUsers").done(function(myUsers){
 		for (i = 0 ; i < myUsers.length ; i++){

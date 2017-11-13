@@ -1,7 +1,33 @@
 myself=0;
+function testEnter (){
+	if (event.keyCode == 13){
+		console.log("Tu as appuyé sur entrer");
+		sendMessages();
+	}
+}
+function sendMessages(){
+	txtMsg = $('#ecrireText').val();
+	$('#ecrireText').val(""); 
+	parametersGet = {
+					url: 'http://messenger.api.niamor.com/sendMessage',
+					method: "post",
+					data: {
+						authKey: myself.authKey,
+						text: txtMsg,
+						to: 0
+					}
+			};
+
+	$.ajax(parametersGet).done(function(){
+		console.log("message envoyé");
+		getMessages();
+	});
+}
+$('#ecrireText').keypress(testEnter)
+$('#buttonEnvoieMessage').click(sendMessages);
 	function getMessages(){
 
-	parameters = {
+	parametersGet = {
 					url: 'http://messenger.api.niamor.com/getMessages',
 					method: "post",
 					data: {
@@ -11,7 +37,7 @@ myself=0;
 			};
 
 
-	$.ajax(parameters).done(function(messages){
+	$.ajax(parametersGet).done(function(messages){
 		console.log(messages);
 		displayMessages(messages);
 	});
@@ -43,9 +69,3 @@ function getUsers(){
 }
 
 $(document).ready(getUsers);
-function sendMessage(){
-	if (event.keyCode == 13){
-		$('#ecrireText').val("");
-	}
-}
-$('#ecrireText').keypress(sendMessage);

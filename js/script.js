@@ -13,7 +13,16 @@ myself=0;
 
 	$.ajax(parameters).done(function(messages){
 		console.log(messages);
+		displayMessages(messages);
 	});
+}
+function displayMessages(someMessages){
+	$('#chatBox').html("");
+	for (i = 0 ; i < someMessages.length ; i++){
+		if(someMessages[i].from.id != myself.id){
+			$('#chatBox').append("<p class='pMsgForMe'>"+someMessages[i].text+"</p>");
+		}else $('#chatBox').append("<p class='pMsgByMe'>"+someMessages[i].text+"</p>");
+	}
 }
 
 function createUser(){

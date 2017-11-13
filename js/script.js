@@ -19,12 +19,6 @@ if (testCookie() == true){
 			}
 		};
 		$.ajax(parameterSetUsername).done(function(changedUser){
-			// myself["id"] = monUser.id;
-			// myself["username"] = monUser.username;
-			// myself["createdAt"] = monUser.createdAt;
-			// myself["lastMessageAt"] = monUser.lastMessageAt;
-			// myself["authKey"] = laAuthKey;
-			console.log(changedUser);
 		});
 
 	}
@@ -42,7 +36,6 @@ if (testCookie() == true){
 							}
 						};
 		$.ajax(parametersGetUser).done(function(monUser){
-		console.log(monUser);
 		myself["id"] = monUser.id;
 		myself["username"] = monUser.username;
 		myself["createdAt"] = monUser.createdAt;
@@ -53,7 +46,6 @@ if (testCookie() == true){
 
 function testEnter (){
 	if (event.keyCode == 13){
-		console.log("Tu as appuyé sur entrer");
 		sendMessages();
 	}
 }
@@ -69,7 +61,6 @@ function sendMessages(){
 				var posSpace = txtMsg.search(" ");
 				var pseudo = txtMsg.slice(posSpace+1, txtMsg.length);
 				changeUsername(pseudo);
-				console.log('')
 			}
 		return false;
 	}	
@@ -84,7 +75,6 @@ function sendMessages(){
 			};
 
 	$.ajax(parametersSet).done(function(){
-		console.log("message envoyé");
 		getMessages();
 	});
 }
@@ -101,7 +91,6 @@ $('#buttonEnvoieMessage').click(sendMessages);
 					}
 			};
 	$.ajax(parametersGet).done(function(messages){
-		console.log(messages);
 		displayMessages(messages);
 	});
 }
@@ -128,7 +117,6 @@ function displayMessages(someMessages){
 function createUser(){
 	$.ajax("http://messenger.api.niamor.com/createUser").done(function(myUser){
 		myself = myUser;
-		console.log(myself.authKey);
 		getMessages();
 		document.cookie = "cookieAuthKey="+myself.authKey;
 	});

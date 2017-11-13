@@ -9,6 +9,25 @@ if (testCookie() == true){
 	createUser();
 }
 
+	function changeUsername (aPseudo){
+		parameterSetUsername = {
+			url:'http://messenger.api.niamor.com/changeUsername',
+			method:'post',
+			data: {
+				authKey: myself.authKey,
+				username: aPseudo
+			}
+		};
+		$.ajax(parameterSetUsername).done(function(changedUser){
+			// myself["id"] = monUser.id;
+			// myself["username"] = monUser.username;
+			// myself["createdAt"] = monUser.createdAt;
+			// myself["lastMessageAt"] = monUser.lastMessageAt;
+			// myself["authKey"] = laAuthKey;
+			console.log(changedUser);
+		});
+
+	}
 	function testCookie (){
 		if (document.cookie == "")res = false;
 		else res = true;
@@ -29,8 +48,6 @@ if (testCookie() == true){
 		myself["createdAt"] = monUser.createdAt;
 		myself["lastMessageAt"] = monUser.lastMessageAt;
 		myself["authKey"] = laAuthKey;
-		console.log(myself);
-		console.log(document.cookie);
 		});
 	}
 
@@ -43,6 +60,19 @@ function testEnter (){
 function sendMessages(){
 	txtMsg = $('#ecrireText').val();
 	$('#ecrireText').val(""); 
+	posCommand = (txtMsg.search("/"));
+	if (posCommand == 0){
+			if(txtMsg == "/help"){
+				$('#ecrireText').attr("placeholder","Tapez /changename suivi d'un pseudo pour changer de pseudo");
+			}
+			if (txtMsg.search("/changename")!= -1){
+				var posSpace = txtMsg.search(" ");
+				var pseudo = txtMsg.slice(posSpace+1, txtMsg.length);
+				changeUsername(pseudo);
+				console.log('')
+			}
+		return false;
+	}	
 	parametersSet = {
 					url: 'http://messenger.api.niamor.com/sendMessage',
 					method: "post",
@@ -51,7 +81,7 @@ function sendMessages(){
 						text: txtMsg,
 						to: 0
 					}
-			};parametersGetUser
+			};
 
 	$.ajax(parametersSet).done(function(){
 		console.log("message envoyé");
